@@ -278,7 +278,7 @@ namespace blackjack
                     Console.WriteLine();
                     if (deler < 22)
                     {
-                        if (kaartenarray.totaal1 > kaartenarray.totaal2 || kaartenarray.totaal1 < 22)
+                        if (kaartenarray.totaal1 > kaartenarray.totaal2 & kaartenarray.totaal1 < 22)
                         {
                             if (kaartenarray.totaal1 > deler & kaartenarray.totaal1 < 22)
                             {
@@ -293,31 +293,47 @@ namespace blackjack
                                 Console.WriteLine("speler1 je hebt verloren");
                             }
                         }
-                        else if (kaartenarray.totaal2 > kaartenarray.totaal1 || kaartenarray.totaal2 < 22)
+                        else if (kaartenarray.totaal2 > kaartenarray.totaal1 & kaartenarray.totaal2 < 22)
                         {
                             if (kaartenarray.totaal2 > deler & kaartenarray.totaal2 < 22)
                             {
-                                Console.WriteLine("speler1 je hebt gewonnen");
+                                Console.WriteLine("speler2 je hebt gewonnen");
                             }
                             else if (kaartenarray.totaal2 == deler)
                             {
-                                Console.WriteLine("speler1 je krijgt je geld terug");
+                                Console.WriteLine("speler2 je krijgt je geld terug");
                             }
                             else
                             {
-                                Console.WriteLine("speler1 je hebt verloren");
+                                Console.WriteLine("speler2 je hebt verloren");
                             }
+                        }
+                        else if(kaartenarray.totaal1 == kaartenarray.totaal2 & kaartenarray.totaal1 > deler & kaartenarray.totaal1 < 22)
+                        {
+                            Console.WriteLine("spelers verdelen het geld");
+                        }
+                        else
+                        {
+                            Console.WriteLine("da's pech. geld weg");
                         }
                     }
                     else
                     {
-                        if (kaartenarray.totaal1 > kaartenarray.totaal2 || kaartenarray.totaal1 < 22)
+                        if (kaartenarray.totaal1 > kaartenarray.totaal2 & kaartenarray.totaal1 < 22)
                         {
                             Console.WriteLine("speler1 je hebt gewonnen");
                         }
-                        else if (kaartenarray.totaal2 > kaartenarray.totaal1 || kaartenarray.totaal2 < 22)
+                        else if (kaartenarray.totaal2 > kaartenarray.totaal1 & kaartenarray.totaal2 < 22)
                         {
                             Console.WriteLine("speler2 je hebt gewonnen");
+                        }
+                        else if (kaartenarray.totaal1 == kaartenarray.totaal2 & kaartenarray.totaal1 < 22)
+                        {
+                            Console.WriteLine("spelers verdelen het geld");
+                        }
+                        else
+                        {
+                            Console.WriteLine("da's pech. geld weg");
                         }
                     }
                     Console.WriteLine("nog een spel? (y/n)");
