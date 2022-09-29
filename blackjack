@@ -1,4 +1,7 @@
+using blackjack;
 using System;
+using System.Diagnostics.Metrics;
+
 namespace blackjack
 {
     public static class kaartenarray
@@ -27,13 +30,13 @@ namespace blackjack
         public int kaartteller()
         {
             int count = 52;
-            for(int i = 0; i < 52 ; i++)
+            for (int i = 0; i < 52; i++)
             {
                 if (kaartenarray.gespeeld[i] == 1)
                 {
                     count--;
                 }
-                if(count == 0)
+                if (count == 0)
                 {
                     Console.WriteLine("deck wordt geschud");
                     for (i = 0; i < 52; i++)
@@ -44,308 +47,327 @@ namespace blackjack
             }
             return count;
         }
-    }
-    class speler
-    {
-        public int kaartpakken()
+
+
+
+        class speler
         {
-            kaart n = new();
-            speler nn = new();
-            int b = 0;
-            string[] allekaarten = new string[52] { "harten 2", "harten 3", "harten 4", "harten 5", "harten 6", "harten 7", "harten 8", "harten 9", "harten 10", "harten boer", "harten vrouw", "harten heer", "harten aas", "schoppen 2", "schoppen 3", "schoppen 4", "schoppen 5", "schoppen 6", "schoppen 7", "schoppen 8", "schoppen 9", "schoppen 10", "schoppen boer", "schoppen vrouw", "schoppen heer", "schoppen aas", "ruiten 2", "ruiten 3", "ruiten 4", "ruiten 5", "ruiten 6", "ruiten 7", "ruiten 8", "ruiten 9", "ruiten 10", "ruiten boer", "ruiten vrouw", "ruiten heer", "ruiten aas", "klaveren 2", "klaveren 3", "klaveren 4", "klaveren 5", "klaveren 6", "klaveren 7", "klaveren 8", "klaveren 9", "klaveren 10", "klaveren boer", "klaveren vrouw", "klaveren heer", "klaveren aas" };
-            int a = 0;
-            int waarde = 0;
-            a = n.random();
-            if (kaartenarray.gespeeld[a] == 0)
+            public int kaartpakken()
             {
-                kaartenarray.gespeeld[a] = 1;
-                Console.WriteLine(allekaarten[a]);
-            }
-            else
-            {
-                b = 0;
-                a = 0;
-                if (kaartenarray.gespeeld[0] == 0)
+                kaart n = new();
+                speler nn = new();
+                int b = 0;
+                string[] allekaarten = new string[52] { "harten 2", "harten 3", "harten 4", "harten 5", "harten 6", "harten 7", "harten 8", "harten 9", "harten 10", "harten boer", "harten vrouw", "harten heer", "harten aas", "schoppen 2", "schoppen 3", "schoppen 4", "schoppen 5", "schoppen 6", "schoppen 7", "schoppen 8", "schoppen 9", "schoppen 10", "schoppen boer", "schoppen vrouw", "schoppen heer", "schoppen aas", "ruiten 2", "ruiten 3", "ruiten 4", "ruiten 5", "ruiten 6", "ruiten 7", "ruiten 8", "ruiten 9", "ruiten 10", "ruiten boer", "ruiten vrouw", "ruiten heer", "ruiten aas", "klaveren 2", "klaveren 3", "klaveren 4", "klaveren 5", "klaveren 6", "klaveren 7", "klaveren 8", "klaveren 9", "klaveren 10", "klaveren boer", "klaveren vrouw", "klaveren heer", "klaveren aas" };
+                int a = 0;
+                int waarde = 0;
+                a = n.random();
+                if (kaartenarray.gespeeld[a] == 0)
                 {
+                    kaartenarray.gespeeld[a] = 1;
                     Console.WriteLine(allekaarten[a]);
-                    kaartenarray.gespeeld[0] = 1;
                 }
-                else while (b == 0)
+                else
+                {
+                    b = 0;
+                    a = 0;
+                    if (kaartenarray.gespeeld[0] == 0)
                     {
-                        n.kaartteller();
-
-                        a++;
-                        if (kaartenarray.gespeeld[a] == 0)
-                        {
-
-                            kaartenarray.gespeeld[a] = 1;
-                            Console.WriteLine(allekaarten[a]);
-                            b = 1;
-                        }
+                        Console.WriteLine(allekaarten[a]);
+                        kaartenarray.gespeeld[0] = 1;
                     }
-            }
-            for (int i = 0; i < a; i++)
-            {
-                waarde++;
-                if (waarde > 12)
-                {
-                    waarde = 0;
+                    else while (b == 0)
+                        {
+                            n.kaartteller();
+
+                            a++;
+                            if (kaartenarray.gespeeld[a] == 0)
+                            {
+
+                                kaartenarray.gespeeld[a] = 1;
+                                Console.WriteLine(allekaarten[a]);
+                                b = 1;
+                            }
+                        }
                 }
-            }
-            waarde = waarde + 2;
-            if (waarde == 14)
-            {
-                if (kaartenarray.totaal1 > 10)
+                for (int i = 0; i < a; i++)
                 {
-                    waarde = 1;
+                    waarde++;
+                    if (waarde > 12)
+                    {
+                        waarde = 0;
+                    }
                 }
-            }
-            if (waarde == 14)
-            {
-                if (kaartenarray.totaal1 < 11)
+                waarde = waarde + 2;
+                if (waarde == 14)
                 {
-                    waarde = 11;
+                    if (kaartenarray.totaal1 > 10)
+                    {
+                        waarde = 1;
+                    }
                 }
+                if (waarde == 14)
+                {
+                    if (kaartenarray.totaal1 < 11)
+                    {
+                        waarde = 11;
+                    }
+                }
+                else if (waarde > 9)
+                {
+                    waarde = 10;
+                }
+                return waarde;
             }
-            else if (waarde > 9)
-            {
-                waarde = 10;
-            }
-            return waarde;
-        }
 
 
-        public int kaartpakken2()
-        {
-            kaart n = new();
-            speler nn = new();
-            int b = 0;
-            string[] allekaarten = new string[52] { "harten 2", "harten 3", "harten 4", "harten 5", "harten 6", "harten 7", "harten 8", "harten 9", "harten 10", "harten boer", "harten vrouw", "harten heer", "harten aas", "schoppen 2", "schoppen 3", "schoppen 4", "schoppen 5", "schoppen 6", "schoppen 7", "schoppen 8", "schoppen 9", "schoppen 10", "schoppen boer", "schoppen vrouw", "schoppen heer", "schoppen aas", "ruiten 2", "ruiten 3", "ruiten 4", "ruiten 5", "ruiten 6", "ruiten 7", "ruiten 8", "ruiten 9", "ruiten 10", "ruiten boer", "ruiten vrouw", "ruiten heer", "ruiten aas", "klaveren 2", "klaveren 3", "klaveren 4", "klaveren 5", "klaveren 6", "klaveren 7", "klaveren 8", "klaveren 9", "klaveren 10", "klaveren boer", "klaveren vrouw", "klaveren heer", "klaveren aas" };
-            int a = 0;
-            int waarde = 0;
-            a = n.random();
-            if (kaartenarray.gespeeld[a] == 0)
+            public int kaartpakken2()
             {
-                kaartenarray.gespeeld[a] = 1;
-                Console.WriteLine(allekaarten[a]);
-            }
-            else
-            {
-                b = 0;
-                a = 0;
-                if (kaartenarray.gespeeld[0] == 0)
+                kaart n = new();
+                speler nn = new();
+                int b = 0;
+                string[] allekaarten = new string[52] { "harten 2", "harten 3", "harten 4", "harten 5", "harten 6", "harten 7", "harten 8", "harten 9", "harten 10", "harten boer", "harten vrouw", "harten heer", "harten aas", "schoppen 2", "schoppen 3", "schoppen 4", "schoppen 5", "schoppen 6", "schoppen 7", "schoppen 8", "schoppen 9", "schoppen 10", "schoppen boer", "schoppen vrouw", "schoppen heer", "schoppen aas", "ruiten 2", "ruiten 3", "ruiten 4", "ruiten 5", "ruiten 6", "ruiten 7", "ruiten 8", "ruiten 9", "ruiten 10", "ruiten boer", "ruiten vrouw", "ruiten heer", "ruiten aas", "klaveren 2", "klaveren 3", "klaveren 4", "klaveren 5", "klaveren 6", "klaveren 7", "klaveren 8", "klaveren 9", "klaveren 10", "klaveren boer", "klaveren vrouw", "klaveren heer", "klaveren aas" };
+                int a = 0;
+                int waarde = 0;
+                a = n.random();
+                if (kaartenarray.gespeeld[a] == 0)
                 {
+                    kaartenarray.gespeeld[a] = 1;
                     Console.WriteLine(allekaarten[a]);
-                    kaartenarray.gespeeld[0] = 1;
                 }
-                else while (b == 0)
+                else
+                {
+                    b = 0;
+                    a = 0;
+                    if (kaartenarray.gespeeld[0] == 0)
                     {
-                        n.kaartteller();
-
-                        a++;
-                        if (kaartenarray.gespeeld[a] == 0)
-                        {
-
-                            kaartenarray.gespeeld[a] = 1;
-                            Console.WriteLine(allekaarten[a]);
-                            b = 1;
-                        }
+                        Console.WriteLine(allekaarten[a]);
+                        kaartenarray.gespeeld[0] = 1;
                     }
-            }
-            for (int i = 0; i < a; i++)
-            {
-                waarde++;
-                if (waarde > 12)
-                {
-                    waarde = 0;
-                }
-            }
-            waarde = waarde + 2;
-            if (waarde == 14)
-            {
-                if (kaartenarray.totaal2 > 10)
-                {
-                    waarde = 1;
-                }
-            }
-            if (waarde == 14)
-            {
-                if (kaartenarray.totaal2 < 11)
-                {
-                    waarde = 11;
-                }
-            }
-            else if (waarde > 9)
-            {
-                waarde = 10;
-            }
-            return waarde;
-        }
+                    else while (b == 0)
+                        {
+                            n.kaartteller();
 
-    static void Main()
-        {
-            int gestopt = 0;
-            int kaart = 0;
-            int kaart2 = 0;
-            kaart n = new();
-            speler nn = new();
-            int kaartenover = n.kaartteller();
-            int b = 0;
-            string spel = "y";
-            string speler1 = "y";
-            Boolean stop1 = false;
-            Boolean stop2 = false;
-            string speler2 = "y";
+                            a++;
+                            if (kaartenarray.gespeeld[a] == 0)
+                            {
 
-            while (spel == "y")
-            {
-                Console.WriteLine("2 spelers? (y/n)");
-                speler1 = Console.ReadLine();
-                if(speler1 == "n")
-                {
-                    stop2 = true;
-                    gestopt++;
+                                kaartenarray.gespeeld[a] = 1;
+                                Console.WriteLine(allekaarten[a]);
+                                b = 1;
+                            }
+                        }
                 }
-
-
-                while (stop1 == false)
+                for (int i = 0; i < a; i++)
                 {
-                    Console.WriteLine("speler1 wil je een kaart? (y/n)");
+                    waarde++;
+                    if (waarde > 12)
+                    {
+                        waarde = 0;
+                    }
+                }
+                waarde = waarde + 2;
+                if (waarde == 14)
+                {
+                    if (kaartenarray.totaal2 > 10)
+                    {
+                        waarde = 1;
+                    }
+                }
+                if (waarde == 14)
+                {
+                    if (kaartenarray.totaal2 < 11)
+                    {
+                        waarde = 11;
+                    }
+                }
+                else if (waarde > 9)
+                {
+                    waarde = 10;
+                }
+                return waarde;
+            }
+
+            static void Main()
+            {
+                int gestopt = 0;
+                int kaart = 0;
+                int kaart2 = 0;
+                kaart n = new();
+                speler nn = new();
+                int kaartenover = n.kaartteller();
+                int b = 0;
+                string spel = "y";
+                string speler1 = "y";
+                Boolean stop1 = false;
+                Boolean stop2 = false;
+                string speler2 = "y";
+
+                while (spel == "y")
+                {
+                    Console.WriteLine("2 spelers? (y/n)");
                     speler1 = Console.ReadLine();
-
-                    if (speler1 == "y")
+                    if (speler1 == "n")
                     {
+                        stop2 = true;
+                        gestopt++;
+                    }
 
 
-                        kaart = nn.kaartpakken();
-                        kaartenarray.totaal1 = kaartenarray.totaal1 + kaart;
+                    while (stop1 == false)
+                    {
+                        Console.WriteLine("speler1 wil je een kaart? (y/n)");
+                        speler1 = Console.ReadLine();
 
-                        if (kaartenarray.totaal1 > 21)
+                        if (speler1 == "y")
                         {
-                            Console.WriteLine("oepsie");
+
+
+                            kaart = nn.kaartpakken();
+                            kaartenarray.totaal1 = kaartenarray.totaal1 + kaart;
+
+                            if (kaartenarray.totaal1 > 21)
+                            {
+                                Console.WriteLine("oepsie");
+                                stop1 = true;
+                                gestopt++;
+                            }
+                        }
+                        else
+                        {
+                            gestopt++;
                             stop1 = true;
-                            gestopt++;
+
                         }
                     }
-                    else
+                    while (stop2 == false)
                     {
-                        gestopt++;
-                        stop1 = true;
+                        Console.WriteLine("speler2 wil je een kaart? (y/n)");
+                        speler2 = Console.ReadLine();
 
-                    }
-                }
-                while (stop2 == false)
-                {
-                    Console.WriteLine("speler2 wil je een kaart? (y/n)");
-                    speler2 = Console.ReadLine();
-
-                    if (speler2 == "y")
-                    {
-
-
-                        kaart2 = nn.kaartpakken2();
-                        kaartenarray.totaal2 = kaartenarray.totaal2 + kaart2;
-
-                        if (kaartenarray.totaal2 > 21)
+                        if (speler2 == "y")
                         {
-                            Console.WriteLine("oepsie");
+
+
+                            kaart2 = nn.kaartpakken2();
+                            kaartenarray.totaal2 = kaartenarray.totaal2 + kaart2;
+
+                            if (kaartenarray.totaal2 > 21)
+                            {
+                                Console.WriteLine("oepsie");
+                                stop2 = true;
+                                gestopt++;
+                            }
+                        }
+                        else
+                        {
+                            gestopt++;
                             stop2 = true;
-                            gestopt++;
                         }
                     }
-                    else
-                    {
-                        gestopt++;
-                        stop2 = true; 
-                    }
-                }
 
-                if (gestopt == 2)
-                {
-                    Console.WriteLine();
-                    int deler = 0;
-                    Console.WriteLine("deler pakt..");
-                    while (deler < 17)
+                    if (gestopt == 2)
                     {
-                        kaart = nn.kaartpakken();
-                        deler = deler + kaart;
-                    }
-                    spel = "n";
-                    Console.WriteLine();
-                    Console.WriteLine("speler1 jij had" + " " + kaartenarray.totaal1);
-                    Console.WriteLine("speler2 jij had" + " " + kaartenarray.totaal2);
-                    Console.WriteLine("deler had" + " " + deler);
-                    Console.WriteLine();
-                    if (deler < 22)
-                    {
-                        if (kaartenarray.totaal1 > kaartenarray.totaal2 & kaartenarray.totaal1 < 22)
+                        Console.WriteLine();
+                        int deler = 0;
+                        Console.WriteLine("deler pakt..");
+                        while (deler < 17)
                         {
-                            if (kaartenarray.totaal1 > deler & kaartenarray.totaal1 < 22)
+                            kaart = nn.kaartpakken();
+                            deler = deler + kaart;
+                        }
+                        spel = "n";
+                        Console.WriteLine();
+                        Console.WriteLine("speler1 jij had" + " " + kaartenarray.totaal1);
+                        Console.WriteLine("speler2 jij had" + " " + kaartenarray.totaal2);
+                        Console.WriteLine("deler had" + " " + deler);
+                        Console.WriteLine();
+                        if (deler < 22)
+                        {
+                            if (kaartenarray.totaal1 > kaartenarray.totaal2 & kaartenarray.totaal1 < 22)
+                            {
+                                if (kaartenarray.totaal1 > deler & kaartenarray.totaal1 < 22)
+                                {
+                                    Console.WriteLine("speler1 je hebt gewonnen");
+                                }
+                                else if (kaartenarray.totaal1 == deler)
+                                {
+                                    Console.WriteLine("speler1 je krijgt je geld terug");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("speler1 je hebt verloren");
+                                }
+                            }
+                            else if (kaartenarray.totaal1 < 22 & kaartenarray.totaal2 > 21 & kaartenarray.totaal1 > deler)
+                            {
+                                Console.WriteLine("speler 1 heeft gewonnen");
+                            }
+                            else if (kaartenarray.totaal2 > kaartenarray.totaal1 & kaartenarray.totaal2 < 22)
+                            {
+                                if (kaartenarray.totaal2 > deler & kaartenarray.totaal2 < 22)
+                                {
+                                    Console.WriteLine("speler2 je hebt gewonnen");
+                                }
+                                else if (kaartenarray.totaal2 == deler)
+                                {
+                                    Console.WriteLine("speler2 je krijgt je geld terug");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("speler2 je hebt verloren");
+                                }
+                            }
+                            else if (kaartenarray.totaal2 < 22 & kaartenarray.totaal1 > 21 & kaartenarray.totaal2 > deler)
+                            {
+                                Console.WriteLine("speler 1 heeft gewonnen");
+                            }
+                            else if (kaartenarray.totaal1 == kaartenarray.totaal2 & kaartenarray.totaal1 > deler & kaartenarray.totaal1 < 22)
+                            {
+                                Console.WriteLine("spelers verdelen het geld");
+                            }
+                            else
+                            {
+                                Console.WriteLine("da's pech. geld weg");
+                            }
+                        }
+                        else
+                        {
+                            if (kaartenarray.totaal1 > kaartenarray.totaal2 & kaartenarray.totaal1 < 22)
                             {
                                 Console.WriteLine("speler1 je hebt gewonnen");
                             }
-                            else if (kaartenarray.totaal1 == deler)
-                            {
-                                Console.WriteLine("speler1 je krijgt je geld terug");
-                            }
-                            else
-                            {
-                                Console.WriteLine("speler1 je hebt verloren");
-                            }
-                        }
-                        else if (kaartenarray.totaal2 > kaartenarray.totaal1 & kaartenarray.totaal2 < 22)
-                        {
-                            if (kaartenarray.totaal2 > deler & kaartenarray.totaal2 < 22)
+                            else if (kaartenarray.totaal2 > kaartenarray.totaal1 & kaartenarray.totaal2 < 22)
                             {
                                 Console.WriteLine("speler2 je hebt gewonnen");
                             }
-                            else if (kaartenarray.totaal2 == deler)
+                            else if (kaartenarray.totaal1 == kaartenarray.totaal2 & kaartenarray.totaal1 < 22)
                             {
-                                Console.WriteLine("speler2 je krijgt je geld terug");
+                                Console.WriteLine("spelers verdelen het geld");
+                            }
+                            else if (kaartenarray.totaal1 < 22 & kaartenarray.totaal2 > 21)
+                            {
+                                Console.WriteLine("speler 1 heeft gewonnen");
+                            }
+                            else if (kaartenarray.totaal2 < 22 & kaartenarray.totaal1 > 21)
+                            {
+                                Console.WriteLine("speler 1 heeft gewonnen");
                             }
                             else
                             {
-                                Console.WriteLine("speler2 je hebt verloren");
+                                Console.WriteLine("da's pech. geld weg");
                             }
                         }
-                        else if(kaartenarray.totaal1 == kaartenarray.totaal2 & kaartenarray.totaal1 > deler & kaartenarray.totaal1 < 22)
-                        {
-                            Console.WriteLine("spelers verdelen het geld");
-                        }
-                        else
-                        {
-                            Console.WriteLine("da's pech. geld weg");
-                        }
-                    }
-                    else
-                    {
-                        if (kaartenarray.totaal1 > kaartenarray.totaal2 & kaartenarray.totaal1 < 22)
-                        {
-                            Console.WriteLine("speler1 je hebt gewonnen");
-                        }
-                        else if (kaartenarray.totaal2 > kaartenarray.totaal1 & kaartenarray.totaal2 < 22)
-                        {
-                            Console.WriteLine("speler2 je hebt gewonnen");
-                        }
-                        else if (kaartenarray.totaal1 == kaartenarray.totaal2 & kaartenarray.totaal1 < 22)
-                        {
-                            Console.WriteLine("spelers verdelen het geld");
-                        }
-                        else
-                        {
-                            Console.WriteLine("da's pech. geld weg");
-                        }
-                    }
-                    Console.WriteLine("nog een spel? (y/n)");
-                    spel = Console.ReadLine();
-                    Console.Clear();
-                    Console.WriteLine("er zijn nog" + " " + n.kaartteller() + " " + "kaarten over");
-                    kaartenarray.totaal1 = 0;
-                    kaartenarray.totaal2 = 0;
-                    stop1 = false;
-                    stop2 = false;
-                    gestopt = 0;
+                        Console.WriteLine("nog een spel? (y/n)");
+                        spel = Console.ReadLine();
+                        Console.Clear();
+                        Console.WriteLine("er zijn nog" + " " + n.kaartteller() + " " + "kaarten over");
+                        kaartenarray.totaal1 = 0;
+                        kaartenarray.totaal2 = 0;
+                        stop1 = false;
+                        stop2 = false;
+                        gestopt = 0;
 
+                    }
                 }
             }
         }
