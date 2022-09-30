@@ -9,9 +9,93 @@ namespace blackjack
        public static int[] gespeeld = new int[52];
        public static int totaal1 = 0;
         public static int totaal2 = 0;
+        public static int deler = 0;
     };
     class kaart
     {
+
+        public string uitslag()
+        {
+            string money = " ";
+            if (kaartenarray.deler < 22)
+            {
+                if (kaartenarray.totaal1 > kaartenarray.totaal2 & kaartenarray.totaal1 < 22)
+                {
+                    if (kaartenarray.totaal1 > kaartenarray.deler & kaartenarray.totaal1 < 22)
+                    {
+                        Console.WriteLine("speler1 je hebt gewonnen");
+                    }
+                    else if (kaartenarray.totaal1 == kaartenarray.deler)
+                    {
+                        Console.WriteLine("speler1 je krijgt je geld terug");
+                    }
+                    else
+                    {
+                        Console.WriteLine("speler1 je hebt verloren");
+                    }
+                }
+                else if (kaartenarray.totaal1 < 22 & kaartenarray.totaal2 > 21 & kaartenarray.totaal1 > kaartenarray.deler)
+                {
+                    Console.WriteLine("speler 1 heeft gewonnen");
+                }
+                else if (kaartenarray.totaal2 > kaartenarray.totaal1 & kaartenarray.totaal2 < 22)
+                {
+                    if (kaartenarray.totaal2 > kaartenarray.deler & kaartenarray.totaal2 < 22)
+                    {
+                        Console.WriteLine("speler2 je hebt gewonnen");
+                    }
+                    else if (kaartenarray.totaal2 == kaartenarray.deler)
+                    {
+                        Console.WriteLine("speler2 je krijgt je geld terug");
+                    }
+                    else
+                    {
+                        Console.WriteLine("speler2 je hebt verloren");
+                    }
+                }
+                else if (kaartenarray.totaal2 < 22 & kaartenarray.totaal1 > 21 & kaartenarray.totaal2 > kaartenarray.deler)
+                {
+                    Console.WriteLine("speler 1 heeft gewonnen");
+                }
+                else if (kaartenarray.totaal1 == kaartenarray.totaal2 & kaartenarray.totaal1 > kaartenarray.deler & kaartenarray.totaal1 < 22)
+                {
+                    Console.WriteLine("spelers verdelen het geld");
+                }
+                else
+                {
+                    Console.WriteLine("da's pech. geld weg");
+                }
+            }
+            else
+            {
+                if (kaartenarray.totaal1 > kaartenarray.totaal2 & kaartenarray.totaal1 < 22)
+                {
+                    Console.WriteLine("speler1 je hebt gewonnen");
+                }
+                else if (kaartenarray.totaal2 > kaartenarray.totaal1 & kaartenarray.totaal2 < 22)
+                {
+                    Console.WriteLine("speler2 je hebt gewonnen");
+                }
+                else if (kaartenarray.totaal1 == kaartenarray.totaal2 & kaartenarray.totaal1 < 22)
+                {
+                    Console.WriteLine("spelers verdelen het geld");
+                }
+                else if (kaartenarray.totaal1 < 22 & kaartenarray.totaal2 > 21)
+                {
+                    Console.WriteLine("speler 1 heeft gewonnen");
+                }
+                else if (kaartenarray.totaal2 < 22 & kaartenarray.totaal1 > 21)
+                {
+                    Console.WriteLine("speler 1 heeft gewonnen");
+                }
+                else
+                {
+                    Console.WriteLine("da's pech. geld weg");
+                }
+            }
+            return money;
+        }
+
         public int random()
         {
             Random rnd = new Random();
@@ -195,7 +279,6 @@ namespace blackjack
                 kaart n = new();
                 speler nn = new();
                 int kaartenover = n.kaartteller();
-                int b = 0;
                 string spel = "y";
                 string speler1 = "y";
                 Boolean stop1 = false;
@@ -204,6 +287,7 @@ namespace blackjack
 
                 while (spel == "y")
                 {
+                    Console.SetWindowSize(40, 30);
                     Console.WriteLine("2 spelers? (y/n)");
                     speler1 = Console.ReadLine();
                     if (speler1 == "n")
@@ -212,6 +296,11 @@ namespace blackjack
                         gestopt++;
                     }
 
+                    Console.WriteLine("kaartenarray.deler pakt..");
+                    kaart = nn.kaartpakken();
+                    kaartenarray.deler = kaartenarray.deler + kaart;
+                    Console.WriteLine();
+                    Console.WriteLine();
 
                     while (stop1 == false)
                     {
@@ -268,95 +357,23 @@ namespace blackjack
                     if (gestopt == 2)
                     {
                         Console.WriteLine();
-                        int deler = 0;
+                        kaartenarray.deler = 0;
                         Console.WriteLine("deler pakt..");
-                        while (deler < 17)
+                        while (kaartenarray.deler < 17)
                         {
                             kaart = nn.kaartpakken();
-                            deler = deler + kaart;
+                            
+                            kaartenarray.deler = kaartenarray.deler + kaart;
                         }
                         spel = "n";
                         Console.WriteLine();
                         Console.WriteLine("speler1 jij had" + " " + kaartenarray.totaal1);
                         Console.WriteLine("speler2 jij had" + " " + kaartenarray.totaal2);
-                        Console.WriteLine("deler had" + " " + deler);
+                        Console.WriteLine("deler had" + " " + kaartenarray.deler);
                         Console.WriteLine();
-                        if (deler < 22)
-                        {
-                            if (kaartenarray.totaal1 > kaartenarray.totaal2 & kaartenarray.totaal1 < 22)
-                            {
-                                if (kaartenarray.totaal1 > deler & kaartenarray.totaal1 < 22)
-                                {
-                                    Console.WriteLine("speler1 je hebt gewonnen");
-                                }
-                                else if (kaartenarray.totaal1 == deler)
-                                {
-                                    Console.WriteLine("speler1 je krijgt je geld terug");
-                                }
-                                else
-                                {
-                                    Console.WriteLine("speler1 je hebt verloren");
-                                }
-                            }
-                            else if (kaartenarray.totaal1 < 22 & kaartenarray.totaal2 > 21 & kaartenarray.totaal1 > deler)
-                            {
-                                Console.WriteLine("speler 1 heeft gewonnen");
-                            }
-                            else if (kaartenarray.totaal2 > kaartenarray.totaal1 & kaartenarray.totaal2 < 22)
-                            {
-                                if (kaartenarray.totaal2 > deler & kaartenarray.totaal2 < 22)
-                                {
-                                    Console.WriteLine("speler2 je hebt gewonnen");
-                                }
-                                else if (kaartenarray.totaal2 == deler)
-                                {
-                                    Console.WriteLine("speler2 je krijgt je geld terug");
-                                }
-                                else
-                                {
-                                    Console.WriteLine("speler2 je hebt verloren");
-                                }
-                            }
-                            else if (kaartenarray.totaal2 < 22 & kaartenarray.totaal1 > 21 & kaartenarray.totaal2 > deler)
-                            {
-                                Console.WriteLine("speler 1 heeft gewonnen");
-                            }
-                            else if (kaartenarray.totaal1 == kaartenarray.totaal2 & kaartenarray.totaal1 > deler & kaartenarray.totaal1 < 22)
-                            {
-                                Console.WriteLine("spelers verdelen het geld");
-                            }
-                            else
-                            {
-                                Console.WriteLine("da's pech. geld weg");
-                            }
-                        }
-                        else
-                        {
-                            if (kaartenarray.totaal1 > kaartenarray.totaal2 & kaartenarray.totaal1 < 22)
-                            {
-                                Console.WriteLine("speler1 je hebt gewonnen");
-                            }
-                            else if (kaartenarray.totaal2 > kaartenarray.totaal1 & kaartenarray.totaal2 < 22)
-                            {
-                                Console.WriteLine("speler2 je hebt gewonnen");
-                            }
-                            else if (kaartenarray.totaal1 == kaartenarray.totaal2 & kaartenarray.totaal1 < 22)
-                            {
-                                Console.WriteLine("spelers verdelen het geld");
-                            }
-                            else if (kaartenarray.totaal1 < 22 & kaartenarray.totaal2 > 21)
-                            {
-                                Console.WriteLine("speler 1 heeft gewonnen");
-                            }
-                            else if (kaartenarray.totaal2 < 22 & kaartenarray.totaal1 > 21)
-                            {
-                                Console.WriteLine("speler 1 heeft gewonnen");
-                            }
-                            else
-                            {
-                                Console.WriteLine("da's pech. geld weg");
-                            }
-                        }
+                        n.uitslag();
+
+
                         Console.WriteLine("nog een spel? (y/n)");
                         spel = Console.ReadLine();
                         Console.Clear();
