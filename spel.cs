@@ -9,18 +9,18 @@ namespace Blackjack
 {
     internal class Speler
     {
-        public int spelen(int card,Boolean[] gespeeld, int totaal, Boolean stop)
+        public int spelen(int card,Boolean[] gespeeld, int totaal, Boolean stop, int beurt,string[] allekaarten)
         {
             Kaart kaart = new Kaart();
             string speler;
             while (stop == false)
             {
-                Console.WriteLine("wil je een kaart? (y/n)");
+                Console.WriteLine("speler " + beurt + " wil je een kaart? (y/n)");
                 speler = Console.ReadLine();
 
                 if (speler == "y")
                 {
-                    card = kaart.Kaartpakken(gespeeld);
+                    card = kaart.Kaartpakken(gespeeld, allekaarten);
                     totaal = totaal + kaart.Kaartwaarde(card, totaal);
                     Console.WriteLine(totaal);
                     gespeeld[card] = true;
@@ -38,9 +38,20 @@ namespace Blackjack
             return totaal;
         }
 
+
+
+
+
+
+
         public string uitslag(int totaal_deler, int totaal_speler1, int totaal_speler2)
         {
             string money = " ";
+
+            Console.WriteLine("speler1 jij had" + " " + totaal_speler1);
+            Console.WriteLine("speler2 jij had" + " " + totaal_speler2);
+            Console.WriteLine("deler had" + " " + totaal_deler);
+            Console.WriteLine();
             if (totaal_deler < 22)
             {
                 if (totaal_speler1 > totaal_speler2 & totaal_speler1 < 22)

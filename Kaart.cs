@@ -16,7 +16,8 @@ namespace Blackjack
             return a;
         }
 
-        public int Kaartteller(Boolean[] gespeeld)
+        public int Kaartteller(Boolean[] gespeeld,string[] allekaarten)
+            //kijk hoeveel kaarten er al zijn gepakt en laat deze op het scherm zien. 
         {
             int count = 52;
             for (int i = 0; i < 52; i++)
@@ -24,8 +25,9 @@ namespace Blackjack
                 if (gespeeld[i] == true)
                 {
                     count--;
+                    Console.WriteLine(allekaarten[i]);
                 }
-                if (count == 0)
+                if (count <= 12)
                 {
                     Console.WriteLine("deck wordt geschud");
                     for (i = 0; i < 52; i++)
@@ -37,11 +39,13 @@ namespace Blackjack
             return count;
         }
 
-        public int Kaartpakken(Boolean[] gespeeld)
+        public int Kaartpakken(Boolean[] gespeeld, string[] allekaarten)
         {
+            //er word een random getal meegegeven. Hiermee wordt er gekozen welke kaart uit de array wordt gepakt.
+            //Dan word ook deze waarden in de boolean array aangepast naar false zodat de kaart geen tweede keer kan worden gepakt.
             Kaart kaart = new();
             int random = kaart.Random();
-            string[] allekaarten = new string[52] {"harten 2", "harten 3", "harten 4", "harten 5", "harten 6", "harten 7", "harten 8", "harten 9", "harten 10", "harten boer", "harten vrouw", "harten heer", "harten aas", "schoppen 2", "schoppen 3", "schoppen 4", "schoppen 5", "schoppen 6", "schoppen 7", "schoppen 8", "schoppen 9", "schoppen 10", "schoppen boer", "schoppen vrouw", "schoppen heer", "schoppen aas", "ruiten 2", "ruiten 3", "ruiten 4", "ruiten 5", "ruiten 6", "ruiten 7", "ruiten 8", "ruiten 9", "ruiten 10", "ruiten boer", "ruiten vrouw", "ruiten heer", "ruiten aas", "klaveren 2", "klaveren 3", "klaveren 4", "klaveren 5", "klaveren 6", "klaveren 7", "klaveren 8", "klaveren 9", "klaveren 10", "klaveren boer", "klaveren vrouw", "klaveren heer", "klaveren aas" };
+            
             if (gespeeld[random] == false)
             {
                 gespeeld[random] = true;
@@ -49,6 +53,7 @@ namespace Blackjack
             }
             else
             {
+                //wanneer de kaart al eerder is gespeeld wordt er een nieuw random getal gemaakt. Dit blijft gebeuren tot er een getal word gepakt die nog niet eerder is getrokken. 
                 while(gespeeld[random] == true)
                 {
                     random = kaart.Random();
@@ -65,7 +70,8 @@ namespace Blackjack
         public int Kaartwaarde(int card, int totaal)
         {
             int waarde = card;
-
+            //de waarde word berekend. de waarde krijgt het overblijfsel wanneer deze door 13 word gedeeld.
+            //dan word er 2 bij opgeteld, al komt dit op 14 uit(de aas) dan wordt gekeken of 11/1 dichter bij blackjack komt, Deze word dan gekozen.
             waarde = waarde % 13;
             waarde = waarde + 2;
             if (waarde == 14)
@@ -83,7 +89,6 @@ namespace Blackjack
             {
                 waarde = 10;
             }
-
             return waarde;
         }
     }
